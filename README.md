@@ -1,36 +1,46 @@
 # automation
 
-**Verify every change before it reaches production.**
+**Detect, explain, and verify process anomalies before they become yield loss.**
 
-`automation`은 반도체 제조 설비의 레시피 변경을 생산 적용 전에 분석하고 검증하는
-시스템입니다. 이 저장소의 모든 문서와 데이터는 **가상 시나리오 기반**이며 실제 팹
-데이터나 내부 정보를 사용하지 않습니다. 시스템은 승인 권고까지만 수행하며 최종 승인은
-항상 사람이 내립니다.
+`automation`은 반도체 공정 센서 데이터에서 이상 가능성을 탐지하고 원인 변수를 설명한 뒤,
+유사 사례를 바탕으로 조치 가이드를 제안하는 사람 중심 의사결정 지원 시스템입니다.
+**공개 데이터셋 기반 프로젝트**이며 실제 팹 데이터나 내부 정보는 사용하지 않습니다.
+조치는 자동 실행하지 않으며 최종 판단은 항상 사람이 내립니다.
 
-## 현재 구현 범위 (Phase 1)
+## 데이터셋 출처
 
-- FastAPI 애플리케이션과 `/health`, `/api/v1/health` 엔드포인트
-- 환경 변수 기반 설정 및 커밋되지 않는 `.env`
-- LLM provider 추상화와 API 키가 필요 없는 결정적 `MockLLM`
-- pytest 및 ruff 기본 설정
+> McCann, M. & Johnston, A. (2008). SECOM [Dataset]. UCI Machine Learning Repository. [https://doi.org/10.24432/C54305](https://doi.org/10.24432/C54305). (CC BY 4.0)
 
-큐는 Phase 5에서 **arq**를 사용합니다. asyncio 기반 FastAPI/LangGraph 흐름과 자연스럽게
-통합되고 작업 함수를 단순하게 테스트할 수 있기 때문입니다.
+원본 데이터는 자동으로 내려받지 않습니다. `data/raw/`에 `secom.data`와
+`secom_labels.data`를 직접 배치해야 하며 두 파일은 Git에서 제외됩니다.
 
-아직 Diff/규칙 엔진, RAG, LangGraph, 큐/worker, Slack/n8n 및 Docker Compose 통합은
-구현하지 않았으며 이후 Phase에서 순서대로 추가합니다.
+## Step 1 구현 범위
 
-## 실행
+- FastAPI 설정, 헬스체크, LLM provider 추상화와 기본 `MockLLM` 유지
+- UCI SECOM 피처·라벨 로딩 및 타임스탬프 파싱
+- 타임스탬프 정렬 후 앞 80%/뒤 20% 순차 분할
+- 학습 구간만 사용한 저분산·전체 결측 피처 제거 및 중앙값 대치
+- 재현 가능한 EDA JSON 요약
+
+아직 SPC/ML 탐지와 성능 비교, 원인 변수 추출, RAG, 조치 가이드, Slack 알림은 구현하지
+않았습니다. LangGraph, 큐, 모델 라우팅은 현재 범위 밖이며 확장 계획에만 포함됩니다.
+
+## 설치 및 실행
 
 ```bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
+python -m app.data.eda
+pytest
+ruff check .
 uvicorn app.main:app --reload
 ```
 
-```bash
-pytest
-ruff check .
-```
+EDA 결과는 `artifacts/eda_summary.json`에 기록됩니다. 성능 수치는 Step 2~3에서 실제 실행한
+결과만 문서화합니다.
 
+## 확장 계획
+
+대규모·장시간 분석이 필요해질 경우 LangGraph 기반 오케스트레이션, Redis 큐 및 위험도별
+모델 라우팅을 검토합니다. 현재 구현에는 포함하지 않습니다.

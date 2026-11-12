@@ -5,4 +5,9 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 chroma_data/
+automation.egg-info/
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+artifacts/
 
