@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Automation · 작업자 업무 지원</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/operator.css">
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/"><span><strong>AUTOMATION</strong><small>작업자 업무 지원</small></span></a>
+  <nav aria-label="주 메뉴">
+    <p>작업 현황</p>
+    <a class="nav-item active" href="#overview">종합 현황</a>
+    <a class="nav-item" href="#events">알림 확인 · 점검</a>
+    <a class="nav-item" href="#handover">교대 인수인계</a>
+    <p>분석 참고</p>
+    <a class="nav-item" href="#models">탐지 모델 평가</a>
+    <a class="nav-item" href="/docs">API 문서</a>
+  </nav>
+  <div class="sidebar-foot"><div class="dataset-note">공개 데이터셋 기반 프로젝트<br>UCI SECOM · CC BY 4.0</div></div>
+</aside>
+<main>
+  <header class="topbar"><div><span class="eyebrow">OPERATOR WORKSPACE</span><h1>작업 현황과 인수인계</h1></div><a class="primary" href="#handover">인수인계 준비</a></header>
+  <section class="notice"><span>가상 업무 데모</span><p>아래 알림·점검 항목은 UI 검증용 가상 시나리오입니다. 기록은 이 브라우저에만 저장됩니다. 실제 설비 제어·보고 전송·생산 재개 승인은 지원하지 않습니다.</p></section>
+  <section class="metric-grid" id="overview" aria-label="가상 업무 현황"></section>
+  <section class="operator-grid" id="events">
+    <article class="panel"><div class="panel-title"><div><span>확인할 업무</span><h2>가상 알림 목록</h2></div></div><div id="event-list"></div></article>
+    <article class="panel">
+      <div class="panel-title"><div><span>작업 기록</span><h2 id="event-title"></h2></div><span id="event-status" class="demo-chip"></span></div>
+      <p id="event-description"></p>
+      <p class="help">알림 확인은 생산 재개 승인과 다릅니다. 센서의 물리적 의미와 고장 원인은 이 데이터만으로 판단할 수 없습니다.</p>
+      <button id="acknowledge" class="primary">알림 확인 · 점검 시작</button>
+      <fieldset id="checklist"><legend>가상 점검 체크리스트</legend>
+        <label><input type="checkbox" data-check="0"> 알림 식별자와 발생 시각을 확인했습니다.</label>
+        <label><input type="checkbox" data-check="1"> 표시된 관찰 정보와 데이터 누락 여부를 확인했습니다.</label>
+        <label><input type="checkbox" data-check="2"> 추가 확인이 필요한 사항과 담당자 보고 내용을 기록했습니다.</label>
+      </fieldset>
+      <label class="field">관찰 내용 · 다음 확인 사항<textarea id="observation" rows="4" maxlength="2000" placeholder="확인한 사실과 추가 확인이 필요한 내용을 구분해 기록하세요."></textarea></label>
+      <label class="field">보고 대상 (가상 담당자)<input id="recipient" maxlength="100" placeholder="예: 해당 공정 담당자"></label>
+      <div class="actions"><button id="save" class="ghost">기록 저장</button><button id="report" class="primary">보고 초안 준비</button></div>
+      <p class="help">모든 항목 확인 및 내용·보고 대상 입력 후 초안을 준비할 수 있습니다. 외부로 전송하지 않습니다.</p>
+      <h3>기록 이력</h3><ul id="history"></ul>
+    </article>
+  </section>
+  <section class="panel handover" id="handover">
+    <div class="panel-title"><div><span>다음 근무자에게 전달</span><h2>미처리 사항 인수인계 초안</h2></div><button class="ghost" id="export">초안 내려받기</button></div>
+    <p class="help">모든 가상 건은 실제 처리가 끝난 상태가 아닙니다. 다음 확인 사항과 함께 인계 대상으로 남습니다.</p>
+    <pre id="handover-text"></pre>
+  </section>
+  <details class="panel handover" id="models">
+    <summary>탐지 모델 평가 — 실제 SECOM 테스트 314건</summary>
+    <p>모델은 작업자 판단을 돕는 참고 도구입니다. 운영 모델은 아직 선정하지 않았습니다.</p>
+    <div class="table-wrap"><table><thead><tr><th>모델</th><th>정밀도</th><th>재현율</th><th>F1</th><th>오탐률</th></tr></thead><tbody>
+      <tr><td>SPC</td><td>0.0519</td><td>0.9412</td><td>0.0985</td><td>0.9832</td></tr>
+      <tr><td>IsolationForest</td><td>0.0323</td><td>0.1176</td><td>0.0506</td><td>0.2020</td></tr>
+      <tr><td>OneClassSVM</td><td>0.0000</td><td>0.0000</td><td>0.0000</td><td>0.0774</td></tr>
+      <tr><td>RandomForest</td><td>0.1333</td><td>0.1176</td><td>0.1250</td><td>0.0438</td></tr>
+    </tbody></table></div>
+    <p class="help">RandomForest도 실제 이상 17건 중 2건만 탐지했습니다. 모델의 정상 판정이 공정 안전이나 생산 재개를 보장하지 않습니다. 표는 기존 비교 실행 결과이며 실시간 갱신되지 않습니다.</p>
+  </details>
+  <footer>Automation · 가상 절차를 이용한 Operator 업무 지원 데모</footer>
+  <p id="feedback" role="status" aria-live="polite"></p>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -26,6 +26,8 @@ select = ["E", "F", "I", "UP", "B"]
 
 [project.scripts]
 automation-eda = "app.data.eda:main"
+automation-spc = "app.evaluation.baseline:main"
+automation-compare = "app.evaluation.compare:main"
 
 [tool.setuptools.packages.find]
 include = ["app*"]

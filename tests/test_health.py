@@ -8,6 +8,7 @@ def test_health_check() -> None:
 
 def test_health_routes_are_registered() -> None:
     paths = {route.path for route in app.routes}
+    assert "/" in paths
     assert "/health" in paths
     assert "/api/v1/health" in paths
 
