@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "SECOM process anomaly detection, explanation, and human verification"
 requires-python = ">=3.11"
 dependencies = [
+  "chromadb>=1.0,<2",
   "fastapi>=0.115,<1",
   "pandas>=2.2,<3",
   "pydantic-settings>=2.6,<3",
@@ -28,6 +29,8 @@ select = ["E", "F", "I", "UP", "B"]
 automation-eda = "app.data.eda:main"
 automation-spc = "app.evaluation.baseline:main"
 automation-compare = "app.evaluation.compare:main"
+automation-knowledge = "app.rag.indexer:main"
+automation-guide-demo = "app.guide.demo:main"
 
 [tool.setuptools.packages.find]
 include = ["app*"]

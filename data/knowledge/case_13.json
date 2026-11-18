@@ -1,0 +1,1 @@
+{"case_id":"SYN-013","title":"전처리 후 값 집중","signal_pattern":"여러 결측값이 같은 중앙값으로 대치됨","observations":["동일 대치값 다수","원본 정보 제한"],"check_items":["대치된 변수 목록 확인","원본 수집 상태 확인 요청"],"handover_notes":["분석보다 데이터 품질 확인을 우선 인계"],"synthetic":true}

@@ -1,0 +1,1 @@
+{"case_id":"SYN-014","title":"모델 이상 점수와 실제 라벨 불일치","signal_pattern":"모델 경보와 공개 데이터 라벨이 일치하지 않음","observations":["오탐 또는 미탐 가능","라벨도 절대적 원인 정보 아님"],"check_items":["예측과 라벨을 구분해 기록","혼동행렬 분류 확인"],"handover_notes":["모델 개선 대상으로 표시"],"synthetic":true}

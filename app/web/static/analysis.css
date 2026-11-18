@@ -1,0 +1,18 @@
+#actual-result {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f6f8fc;
+  border-radius: 8px;
+  line-height: 1.7;
+}
+#actual-result h3 { margin-top: 18px; }
+.analysis-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 12px;
+  font-weight: bold;
+  background: #e6ecf7;
+}
+.analysis-badge.anomaly { background: #ffe4e6; color: #b42335; }
+.analysis-list { padding-left: 20px; }
+.analysis-list li { margin: 7px 0; }

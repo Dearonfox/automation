@@ -1,0 +1,1 @@
+{"case_id":"SYN-015","title":"교대 시 미처리 분석 건","signal_pattern":"분석 결과는 생성됐으나 담당자 확인이 완료되지 않음","observations":["사람 확인 대기","자동 승인 없음"],"check_items":["분석 ID와 상태 확인","보고 대상과 다음 확인 사항 기록"],"handover_notes":["다음 근무자에게 미처리 상태로 전달"],"synthetic":true}

@@ -1,0 +1,1 @@
+{"case_id":"SYN-005","title":"결측이 많은 샘플의 편차","signal_pattern":"여러 익명 센서의 원본값이 비어 있고 대치 후 편차 발생","observations":["입력 누락 가능성","대치값 기반 분석"],"check_items":["원본 결측 개수 확인","분석 신뢰도 제한 기록"],"handover_notes":["누락 데이터 확인을 우선 요청"],"synthetic":true}

@@ -1,0 +1,1 @@
+{"case_id":"SYN-004","title":"상승과 하락 혼합 편차","signal_pattern":"sensor_150 상승과 sensor_151 하락이 동시 관찰","observations":["서로 다른 방향의 편차","센서 의미는 익명"],"check_items":["두 센서의 z-score 별도 기록","같은 샘플인지 확인"],"handover_notes":["원인 단정 없이 관찰 사실만 전달"],"synthetic":true}

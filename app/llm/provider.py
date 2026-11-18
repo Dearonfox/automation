@@ -12,3 +12,7 @@ class LLMResponse:
 class LLMProvider(Protocol):
     async def generate(self, prompt: str, *, model: str | None = None) -> LLMResponse: ...
 
+    async def generate_structured(
+        self, prompt: str, *, schema_name: str, model: str | None = None
+    ) -> LLMResponse: ...
+

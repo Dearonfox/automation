@@ -1,0 +1,1 @@
+{"case_id":"SYN-010","title":"경계값 부근 편차","signal_pattern":"여러 센서 z-score가 경보 기준 근처에 분포","observations":["명확한 단일 큰 편차 없음","임계값 민감"],"check_items":["정확한 점수 기록","임계값 변경 없이 담당자 확인"],"handover_notes":["경계 사례임을 표시"],"synthetic":true}

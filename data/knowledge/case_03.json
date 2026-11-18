@@ -1,0 +1,1 @@
+{"case_id":"SYN-003","title":"단일 센서 큰 음의 편차","signal_pattern":"sensor_100 계열 한 개가 기준 평균보다 크게 하락","observations":["음의 방향 편차","측정값 존재 여부 확인 필요"],"check_items":["결측 대치 전 원본값 확인","단위나 범위 해석 금지"],"handover_notes":["값과 기준 평균을 함께 기록"],"synthetic":true}

@@ -1,0 +1,1 @@
+{"case_id":"SYN-012","title":"학습 범위 밖 값 관찰","signal_pattern":"테스트 샘플 값이 학습 구간 최소 최대 범위를 벗어남","observations":["과거 학습 범위 밖","실제 이상 여부 미확인"],"check_items":["학습 범위와 현재 값 병기","데이터 형식 변화 확인"],"handover_notes":["모델 외삽 한계를 함께 전달"],"synthetic":true}

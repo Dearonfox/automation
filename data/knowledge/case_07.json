@@ -1,0 +1,1 @@
+{"case_id":"SYN-007","title":"SPC와 ML 판단 불일치","signal_pattern":"SPC 이상, RandomForest 정상 또는 반대 판단","observations":["모델 간 판단 불일치","각 모델 한계 존재"],"check_items":["모델별 결과 병기","실제 관찰 정보 확인"],"handover_notes":["자동 결론 없이 담당자 검토 요청"],"synthetic":true}

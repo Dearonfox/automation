@@ -15,6 +15,26 @@ class ModelPrediction:
     predictions: pd.Series
 
 
+@dataclass(frozen=True)
+class RandomForestDetector:
+    model: RandomForestClassifier
+    threshold: float
+    columns: tuple[str, ...]
+
+    def predict(self, features: pd.DataFrame) -> ModelPrediction:
+        if tuple(features.columns) != self.columns:
+            raise ValueError("Prediction features must match fitted feature names and order")
+        positive_index = list(self.model.classes_).index(1)
+        probabilities = self.model.predict_proba(features)[:, positive_index]
+        predictions = pd.Series(
+            np.where(probabilities >= self.threshold, 1, -1),
+            index=features.index,
+            name="prediction",
+            dtype="int8",
+        )
+        return ModelPrediction("RandomForest", predictions)
+
+
 def fit_predict_isolation_forest(
     x_train: pd.DataFrame,
     x_test: pd.DataFrame,
@@ -57,6 +77,16 @@ def fit_predict_random_forest(
     *,
     random_state: int = 42,
 ) -> ModelPrediction:
+    detector = fit_random_forest(x_train, y_train, random_state=random_state)
+    return detector.predict(x_test)
+
+
+def fit_random_forest(
+    x_train: pd.DataFrame,
+    y_train: pd.Series,
+    *,
+    random_state: int = 42,
+) -> RandomForestDetector:
     split_at = int(len(x_train) * 0.8)
     while split_at < len(x_train) - 1 and y_train.iloc[:split_at].nunique() < 2:
         split_at += 1
@@ -72,15 +102,7 @@ def fit_predict_random_forest(
 
     model = _random_forest(random_state)
     model.fit(x_train, y_train)
-    positive_index = list(model.classes_).index(1)
-    probabilities = model.predict_proba(x_test)[:, positive_index]
-    predictions = pd.Series(
-        np.where(probabilities >= threshold, 1, -1),
-        index=x_test.index,
-        name="prediction",
-        dtype="int8",
-    )
-    return ModelPrediction("RandomForest", predictions)
+    return RandomForestDetector(model=model, threshold=threshold, columns=tuple(x_train.columns))
 
 
 def _random_forest(random_state: int) -> RandomForestClassifier:

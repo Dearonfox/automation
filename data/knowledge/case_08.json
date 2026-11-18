@@ -1,0 +1,1 @@
+{"case_id":"SYN-008","title":"짧은 시간 연속 편차","signal_pattern":"연속된 샘플에서 유사 센서 조합 편차","observations":["시간적으로 가까운 반복","단일 이벤트 여부 불명"],"check_items":["타임스탬프 순서 확인","반복 횟수와 간격 기록"],"handover_notes":["다음 근무자가 추세를 확인하도록 인계"],"synthetic":true}

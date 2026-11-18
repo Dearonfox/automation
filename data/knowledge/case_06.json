@@ -1,0 +1,1 @@
+{"case_id":"SYN-006","title":"관리한계 다수 초과","signal_pattern":"SPC에서 여러 센서가 평균 3표준편차 범위를 초과","observations":["다수 관리한계 초과","SPC 오탐 가능성 존재"],"check_items":["초과 센서 수 기록","ML 결과와 분리해 기록"],"handover_notes":["SPC 경보만으로 조치하지 않음"],"synthetic":true}

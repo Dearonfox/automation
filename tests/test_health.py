@@ -11,4 +11,6 @@ def test_health_routes_are_registered() -> None:
     assert "/" in paths
     assert "/health" in paths
     assert "/api/v1/health" in paths
+    assert "/api/v1/analyze" in paths
+    assert "/api/v1/analyses/{analysis_id}" in paths
 

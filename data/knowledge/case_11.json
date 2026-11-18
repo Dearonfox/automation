@@ -1,0 +1,1 @@
+{"case_id":"SYN-011","title":"높은 차원의 산발적 편차","signal_pattern":"sensor_300 이후 여러 번호에 작은 편차가 분산","observations":["편차가 많은 변수에 분산","상위 변수만으로 설명 제한"],"check_items":["상위 N개와 전체 초과 수 기록","설명 한계 명시"],"handover_notes":["전체 분석 결과 링크를 인계"],"synthetic":true}

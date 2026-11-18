@@ -92,3 +92,67 @@ $("#export").onclick=()=>{
   setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 render();
+
+function appendText(parent, tag, text, className) {
+  const element = document.createElement(tag);
+  element.textContent = text;
+  if (className) element.className = className;
+  parent.append(element);
+  return element;
+}
+function appendList(parent, title, items) {
+  appendText(parent, "h3", title);
+  const list = document.createElement("ul");
+  list.className = "analysis-list";
+  items.forEach(item => appendText(list, "li", item));
+  parent.append(list);
+}
+$("#run-actual").onclick = async () => {
+  const button = $("#run-actual");
+  const output = $("#actual-result");
+  button.disabled = true;
+  button.textContent = "분석 중…";
+  output.hidden = false;
+  output.replaceChildren();
+  appendText(output, "p", "모델과 지식 검색을 준비하고 있습니다.");
+  try {
+    const response = await fetch("/api/v1/analyze", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({sample_index: 1363})
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail || "분석 요청에 실패했습니다.");
+    output.replaceChildren();
+    appendText(
+      output,
+      "span",
+      data.anomalous ? "이상 판정 · 검토 필요" : "정상 판정 · 참고 결과",
+      "analysis-badge" + (data.anomalous ? " anomaly" : "")
+    );
+    appendText(output, "p", "분석 ID: " + data.analysis_id + " · 상태: " + data.status);
+    appendList(output, "상위 센서 편차", data.result.top_deviations.map(
+      item => item.sensor + " · |z| " + item.z_score.toFixed(2)
+    ));
+    appendList(output, "검색된 가상 사례", data.result.retrieved_cases.map(
+      item => item.case_id + " · " + item.title
+    ));
+    appendText(output, "h3", "작업자 점검·보고 초안");
+    appendText(output, "p", data.result.guide.summary);
+    appendList(output, "확인 항목", data.result.guide.check_items);
+    appendText(output, "p", data.result.guide.report_draft);
+    appendList(output, "주의사항", data.result.guide.cautions);
+    appendText(
+      output,
+      "p",
+      "이 결과는 생산 재개나 설비 조작을 승인하지 않습니다.",
+      "help"
+    );
+  } catch (error) {
+    output.replaceChildren();
+    appendText(output, "p", error.message);
+  } finally {
+    button.disabled = false;
+    button.textContent = "샘플 분석 다시 실행";
+  }
+};

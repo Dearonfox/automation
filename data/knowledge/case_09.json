@@ -1,0 +1,1 @@
+{"case_id":"SYN-009","title":"간헐적 센서 편차","signal_pattern":"sensor_250 계열 편차가 떨어진 시각에 반복","observations":["연속되지 않은 반복","관련성 미확인"],"check_items":["발생 시각 목록 기록","중간 정상 샘플 확인"],"handover_notes":["반복 패턴 여부만 전달"],"synthetic":true}

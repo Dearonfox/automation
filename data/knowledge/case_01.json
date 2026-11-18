@@ -1,0 +1,1 @@
+{"case_id":"SYN-001","title":"단일 센서 큰 양의 편차","signal_pattern":"sensor_000 계열 한 개가 기준 평균보다 크게 상승","observations":["단일 익명 센서 편차","다른 센서 변화는 제한적"],"check_items":["발생 시각과 샘플 식별자 확인","결측치와 입력 형식 확인"],"handover_notes":["센서 의미를 추정하지 말고 담당자 확인 요청"],"synthetic":true}

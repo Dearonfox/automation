@@ -1,0 +1,1 @@
+{"case_id":"SYN-002","title":"복수 센서 동시 양의 편차","signal_pattern":"sensor_050 sensor_051 sensor_052가 같은 샘플에서 상승","observations":["인접 번호 익명 센서 동시 편차","공통 시각에 발생"],"check_items":["원본 행과 전처리 결과 대조","직전 샘플과 비교"],"handover_notes":["동시 발생 사실을 담당자에게 전달"],"synthetic":true}
